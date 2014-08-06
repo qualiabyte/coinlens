@@ -1,0 +1,41 @@
+
+.coinlens {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px #666;
+}
+
+.coinlens .widget-label {
+  display: block;
+  font-size: 16px;
+  color: #aaa;
+}
+
+.coinlens.bitcoin-price .price-label {
+  display: block;
+  font-size: 15px;
+  color: #888;
+}
+
+.coinlens.bitcoin-price .price-value {
+  font-size: 18px;
+  color: #333;
+}
+
+.coinlens.bitcoin-balance .balance {
+  display: block;
+  font-size: 18px;
+  color: #333;
+}
+
+.coinlens.bitcoin-balance .balance-value {}
+
+.coinlens.bitcoin-balance .balance-units {}
+
+.coinlens.bitcoin-balance .bitcoin-address {
+  display: block;
+  color: #888;
+}
