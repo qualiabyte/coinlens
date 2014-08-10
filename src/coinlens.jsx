@@ -68,6 +68,89 @@ var BitcoinBalance = React.createClass({
   }
 });
 
+var BitcoinBalanceHistory = React.createClass({
+
+  getInitialState: function() {
+    return {
+      balanceHistory: null
+    };
+  },
+
+  componentDidMount: function() {
+    var self = this;
+    var address = self.props.address;
+    var getBalance = function(callback) {
+      $.ajax({
+        url: 'https://api.biteasy.com/blockchain/v1/addresses/' + self.props.address,
+        success: function(json, status, xhr) {
+          return callback(json.data.balance);
+        }
+      });
+    };
+    var getTxs = function(callback) {
+      $.ajax({
+        url: 'https://api.biteasy.com/blockchain/v1/transactions?address='
+          + self.props.address
+          + '&per_page=100',
+        success: function(json, status, xhr) {
+          return callback(json.data.transactions);
+        }
+      });
+    };
+    var getHistory = function(callback) {
+      getBalance(function(balance) {
+        getTxs(function(txs) {
+          var history = [];
+          for (var i = 0; i < txs.length; i++) {
+            var tx = txs[i];
+            var out = 0;
+            var inn = 0;
+
+            for (var j in tx.outputs)
+              if (tx.outputs[j].to_address == address)
+                out += tx.outputs[j].value;
+
+            for (var j in tx.inputs)
+              if (tx.inputs[j].from_address == address)
+                inn += tx.inputs[j].outpoint_value;
+
+            history[i] = {
+              balance: (i == 0)
+                ? balance
+                : history[i-1].balance + history[i-1].in - history[i-1].out,
+              date: txs[i].created_at,
+              out: out,
+              in: inn
+            };
+          }
+          return callback(history, balance, txs);
+        });
+      });
+    };
+    getHistory(function(history, balance, txs) {
+      if (self.isMounted()) {
+        self.setState({
+          balance: balance,
+          balanceHistory: history,
+          transactions: txs
+        });
+      }
+    });
+  },
+
+  render: function() {
+    return (
+      <div>
+        <span className="widget-label">Bitcoin Balance History</span>
+        <span className="balance-history">
+          <pre>{JSON.stringify(this.state.balanceHistory, null, '  ')}</pre>
+        </span>
+        <span className="bitcoin-address">{this.props.address}</span>
+      </div>
+    );
+  }
+});
+
 $('.coinlens.bitcoin-price').each(function(index, elem) {
   var $price = $(elem);
   React.renderComponent(
@@ -81,5 +164,13 @@ $('.coinlens.bitcoin-balance').each(function(index, elem) {
   React.renderComponent(
     <BitcoinBalance address={$balance.data('address')}/>,
     $balance[0]
+  );
+});
+
+$('.coinlens.bitcoin-balance-history').each(function(index, elem) {
+  var $history = $(elem);
+  React.renderComponent(
+    <BitcoinBalanceHistory address={$history.data('address')}/>,
+    $history[0]
   );
 });
