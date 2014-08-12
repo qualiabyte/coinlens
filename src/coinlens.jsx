@@ -70,6 +70,14 @@ var BitcoinBalance = React.createClass({
 
 var BitcoinBalanceHistory = React.createClass({
 
+  getDefaultProps: function() {
+    return {
+      count: 25,
+      height: 300,
+      width: 400
+    };
+  },
+
   getInitialState: function() {
     return {
       balanceHistory: null
@@ -91,7 +99,7 @@ var BitcoinBalanceHistory = React.createClass({
       $.ajax({
         url: 'https://api.biteasy.com/blockchain/v1/transactions?address='
           + self.props.address
-          + '&per_page=100',
+          + '&per_page=' + self.props.count,
         success: function(json, status, xhr) {
           return callback(json.data.transactions);
         }
@@ -134,17 +142,62 @@ var BitcoinBalanceHistory = React.createClass({
           balanceHistory: history,
           transactions: txs
         });
+        self.updateChart();
       }
     });
+  },
+
+  updateChart: function() {
+    var self = this;
+    var $container = $(self.refs.chartContainer.getDOMNode());
+    var $canvas = $('<canvas>').attr({
+      width: self.props.width,
+      height: self.props.height
+    });
+    var ctx = $canvas[0].getContext('2d');
+    var history = self.state.balanceHistory.concat().reverse();
+    var dates = history.map(function(h, i) {
+      return new Date(h.date);
+    });
+    var labels = history.map(function(h, i) {
+      return (i == 0 || i == history.length - 1)
+        ? new Date(h.date).toISOString().split(/T/)[0]
+        : '';
+    });
+    var values = history.map(function(h) {
+      return (h.balance / 1e8).toFixed(2);
+    });
+    var set = {
+      fillColor: "rgba(0, 128, 255, 0.5)",
+      strokeColor: "rgba(0, 128, 255, 0.8)",
+      pointDotRadius: '1px',
+      pointDotStrokeWidth: '1px',
+      xPos: dates,
+      data: values
+    };
+    var data = {
+      labels: labels,
+      datasets: [ set ]
+    };
+    var options = {
+      annotateDisplay: true,
+      annotateClassName: 'coinlens-tooltip',
+      annotateLabel:
+        "<%= v3 + ' ' + 'BTC' + '<br>'" +
+        " + v2.toString().split(' ')[0] + ' '" +
+        " + v2.toISOString().slice(0,19).replace(/T/,' ') %>",
+      fullWidthGraph: true,
+      rotateLabels: 0
+    };
+    var chart = new Chart(ctx).Line(data, options);
+    $container.append($canvas);
   },
 
   render: function() {
     return (
       <div>
         <span className="widget-label">Bitcoin Balance History</span>
-        <span className="balance-history">
-          <pre>{JSON.stringify(this.state.balanceHistory, null, '  ')}</pre>
-        </span>
+        <div className="balance-history-chart" ref="chartContainer"></div>
         <span className="bitcoin-address">{this.props.address}</span>
       </div>
     );
@@ -170,7 +223,10 @@ $('.coinlens.bitcoin-balance').each(function(index, elem) {
 $('.coinlens.bitcoin-balance-history').each(function(index, elem) {
   var $history = $(elem);
   React.renderComponent(
-    <BitcoinBalanceHistory address={$history.data('address')}/>,
+    <BitcoinBalanceHistory address={$history.data('address')}
+      count={$history.data('count')}
+      height={$history.data('height')}
+      width={$history.data('width')} />,
     $history[0]
   );
 });

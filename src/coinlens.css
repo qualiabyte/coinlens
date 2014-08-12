@@ -42,3 +42,22 @@
   display: block;
   color: #888;
 }
+
+.coinlens.bitcoin-balance-history .balance-history-chart {}
+
+.coinlens.bitcoin-balance-history .bitcoin-address {
+  display: block;
+  color: #888;
+}
+
+.coinlens-tooltip {
+  position: absolute;
+  border: medium none;
+  padding: 3px;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-family: "Arial";
+  font-size: 14px;
+  font-style: normal;
+}
