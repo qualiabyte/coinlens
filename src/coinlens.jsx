@@ -74,6 +74,7 @@ var BitcoinBalanceHistory = React.createClass({
     return {
       count: 25,
       height: 300,
+      uniform: false,
       width: 400
     };
   },
@@ -170,13 +171,13 @@ var BitcoinBalanceHistory = React.createClass({
     var set = {
       fillColor: "rgba(0, 128, 255, 0.5)",
       strokeColor: "rgba(0, 128, 255, 0.8)",
-      pointDotRadius: '1px',
-      pointDotStrokeWidth: '1px',
       xPos: dates,
       data: values
     };
     var data = {
       labels: labels,
+      xBegin: (self.props.uniform) ? null : dates[0],
+      xEnd: (self.props.uniform) ? null : dates[dates.length-1],
       datasets: [ set ]
     };
     var options = {
@@ -187,6 +188,9 @@ var BitcoinBalanceHistory = React.createClass({
         " + v2.toString().split(' ')[0] + ' '" +
         " + v2.toISOString().slice(0,19).replace(/T/,' ') %>",
       fullWidthGraph: true,
+      pointDot: true,
+      pointDotRadius: 4,
+      pointDotStrokeWidth: 2,
       rotateLabels: 0
     };
     var chart = new Chart(ctx).Line(data, options);
@@ -226,6 +230,7 @@ $('.coinlens.bitcoin-balance-history').each(function(index, elem) {
     <BitcoinBalanceHistory address={$history.data('address')}
       count={$history.data('count')}
       height={$history.data('height')}
+      uniform={$history.data('uniform')}
       width={$history.data('width')} />,
     $history[0]
   );
