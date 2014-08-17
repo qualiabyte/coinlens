@@ -1,5 +1,11 @@
 /** @jsx React.DOM */
 
+(function() { var main = function() {
+
+if (!window.$)     return console.log("Waiting for jQuery");
+if (!window.React) return console.log("Waiting for React");
+if (!window.Chart) return console.log("Waiting for Chart.js");
+
 var BitcoinPrice = React.createClass({
 
   getInitialState: function() {
@@ -235,3 +241,40 @@ $('.coinlens.bitcoin-balance-history').each(function(index, elem) {
     $history[0]
   );
 });
+
+}; // end main
+
+var setup = function(callback) {
+
+  var script = function(url, callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    script.onload = script.onreadystatechange = callback;
+    head.appendChild(script);
+  };
+
+  var style = function(url, callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = url;
+    link.onload = link.onreadystatechange = callback;
+    head.appendChild(link);
+  };
+
+  // style("http://qualiabyte.github.io/coinlens/src/coinlens.css");
+  // script("http://qualiabyte.github.io/coinlens/lib/chart-new.js", callback);
+
+  style("/src/coinlens.css");
+  script("http://code.jquery.com/jquery-1.10.0.min.js", callback);
+  script("http://fb.me/react-0.11.1.min.js", callback);
+  script("/lib/chart-new.js", callback);
+
+};
+
+// Let's do this!
+setup(main);
+
+}());
