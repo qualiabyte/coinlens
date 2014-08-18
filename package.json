@@ -6,8 +6,9 @@
   "main": "",
   "scripts": {
     "build": "make build",
-    "watch": "make watch",
-    "clean": "make clean"
+    "clean": "make clean",
+    "prepublish": "make clean && make build",
+    "watch": "make watch"
   },
   "repository": {
     "type": "git",
