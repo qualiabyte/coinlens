@@ -7,7 +7,7 @@
   "scripts": {
     "build": "make build",
     "clean": "make clean",
-    "prepublish": "make clean && make build",
+    "prepublish": "make clean && make",
     "watch": "make watch"
   },
   "repository": {
