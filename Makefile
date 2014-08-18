@@ -5,7 +5,7 @@ all: build
 
 build:
 	mkdir -p js
-	$(JSX) -x jsx src build
+	$(JSX) -x jsx src js
 
 watch:
 	mkdir -p js
