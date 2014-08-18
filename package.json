@@ -6,12 +6,16 @@
   "main": "",
   "scripts": {
     "build": "make build",
-    "watch": "make watch",
-    "clean": "make clean"
+    "clean": "make clean",
+    "prepublish": "make clean && make build",
+    "watch": "make watch"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/qualiabyte/coinlens.git"
+  },
+  "devDependencies": {
+    "react-tools": "~0.11.1"
   },
   "keywords": [
     "coinlens",
