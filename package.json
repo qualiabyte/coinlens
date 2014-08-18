@@ -13,6 +13,9 @@
     "type": "git",
     "url": "https://github.com/qualiabyte/coinlens.git"
   },
+  "devDependencies": {
+    "react-tools": "~0.11.1"
+  },
   "keywords": [
     "coinlens",
     "bitcoin",
