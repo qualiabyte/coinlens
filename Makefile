@@ -12,6 +12,6 @@ watch:
 	$(JSX) -x jsx --watch src js
 
 clean:
-	rm -rf build
+	rm -rf js
 
 .PHONY: all build watch clean
