@@ -2,8 +2,33 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <style>
+      body {
+        font-family: "Open Sans", "Lucida Grande", Arial;
+      }
+      .header {
+        font-size: 20px;
+        font-weight: normal;
+      }
+      .header a {
+        text-decoration: none;
+      }
+      .header a:hover {
+        text-decoration: underline;
+      }
+      .title, .title * {
+        color: #333;
+      }
+      .subtitle, .subtitle * {
+        color: #888;
+      }
+    </style>
   </head>
   <body>
+    <h1 class="header">
+      <span class="title"><a href="https://github.com/qualiabyte/coinlens">CoinLens</a></span>
+      <span class="subtitle">/ <a href="http://qualiabyte.github.io/coinlens">Live Demo</a></span>
+    </h1>
     <div class="coinlens bitcoin-price"></div>
     <div class="coinlens bitcoin-balance" data-address="36PrZ1KHYMpqSyAQXSG8VwbUiq2EogxLo2"></div><br>
     <div class="coinlens bitcoin-balance-history" data-width="405" data-height="200" data-uniform="true" data-count="25" data-address="36PrZ1KHYMpqSyAQXSG8VwbUiq2EogxLo2"></div>

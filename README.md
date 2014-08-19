@@ -22,6 +22,8 @@ A suite of minimalist Bitcoin widgets
 </html>
 ```
 
+Try the [live demo](http://qualiabyte.github.io/coinlens)!
+
 ## Widgets
 
 ### Bitcoin-Price
