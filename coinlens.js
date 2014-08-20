@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 
-(function() { var main = function() {
+(function($) { var main = function() {
 
-if (!window.$)     return console.log("Waiting for jQuery");
+if (!$)            return console.log("Waiting for jQuery");
 if (!window.React) return console.log("Waiting for React");
 if (!window.Chart) return console.log("Waiting for Chart.js");
 
@@ -264,8 +264,13 @@ var setup = function(callback) {
     head.appendChild(link);
   };
 
+  var onJQuery = function() {
+    $ = window.jQuery.noConflict(true);
+    callback();
+  };
+
   style("//qualiabyte.github.io/coinlens/css/coinlens.css");
-  script("//code.jquery.com/jquery-1.10.0.min.js", callback);
+  script("//code.jquery.com/jquery-1.10.0.min.js", onJQuery);
   script("//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react.js", callback);
   script("//qualiabyte.github.io/coinlens/lib/chart-new.js", callback);
 
