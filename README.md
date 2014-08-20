@@ -63,7 +63,7 @@ Try the [live demo](http://qualiabyte.github.io/coinlens)!
 + `address` *String* The bitcoin address (**Required**)
 + `count` *Number* The number of transactions to display (Default: 25)
 + `height` *Number* The height in pixels (Default: 300)
-+ `uniform` *Boolean* Whether to space options evenly (Default: false)
++ `uniform` *Boolean* Whether to space transactions evenly (Default: false)
 + `width` *Number* The width in pixels (Default: 400)
 
 ## Credits
