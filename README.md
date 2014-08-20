@@ -17,7 +17,7 @@ A suite of minimalist Bitcoin widgets
     <div class="coinlens bitcoin-price"></div>
     <div class="coinlens bitcoin-balance" data-address="36PrZ1KHYMpqSyAQXSG8VwbUiq2EogxLo2"></div>
     <div class="coinlens bitcoin-balance-history" data-uniform="true" data-count="25" data-address="36PrZ1KHYMpqSyAQXSG8VwbUiq2EogxLo2"></div>
-    <script src="http://qualiabyte.github.io/coinlens/coinlens.js"></script>
+    <script src="//qualiabyte.github.io/coinlens/coinlens.js"></script>
   </body>
 </html>
 ```

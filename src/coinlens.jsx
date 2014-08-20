@@ -264,10 +264,10 @@ var setup = function(callback) {
     head.appendChild(link);
   };
 
-  style("http://qualiabyte.github.io/coinlens/css/coinlens.css");
-  script("http://code.jquery.com/jquery-1.10.0.min.js", callback);
-  script("http://fb.me/react-0.11.1.min.js", callback);
-  script("http://qualiabyte.github.io/coinlens/lib/chart-new.js", callback);
+  style("//qualiabyte.github.io/coinlens/css/coinlens.css");
+  script("//code.jquery.com/jquery-1.10.0.min.js", callback);
+  script("//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react.js", callback);
+  script("//qualiabyte.github.io/coinlens/lib/chart-new.js", callback);
 
 };
 
