@@ -10,14 +10,15 @@ var BitcoinPrice = React.createClass({
 
   getDefaultProps: function() {
     return {
-      currency: "USD"
     };
   },
 
   getInitialState: function() {
     return {
       bitcoinPrice: null,
-      symbol: null
+      currency: "USD",
+      symbol: null,
+      ticker: {}
     };
   },
 
@@ -26,13 +27,33 @@ var BitcoinPrice = React.createClass({
     var url = 'https://blockchain.info/ticker?cors=true';
     var success = function(data) {
       if (self.isMounted()) {
-        self.setState({
-          bitcoinPrice: data[self.props.currency]['15m'],
-          symbol: data[self.props.currency]['symbol']
-        });
+        self.setTicker(data);
+        self.setCurrency(self.state.currency);
       }
     };
     $.ajax(url).done(success);
+  },
+
+  handleCurrency: function(event) {
+    var self = this;
+    var currency = event.target.value;
+    self.setCurrency(currency);
+  },
+
+  setTicker: function(data) {
+    var self = this;
+    self.setState({
+      ticker: data
+    });
+  },
+
+  setCurrency: function(currency) {
+    var self = this;
+    self.setState({
+      currency: currency,
+      symbol: self.state.ticker[currency]['symbol'],
+      bitcoinPrice: self.state.ticker[currency]['15m']
+    });
   },
 
   render: function() {
@@ -40,7 +61,34 @@ var BitcoinPrice = React.createClass({
       <div>
         <span className="widget-label">Bitcoin Price</span>
         <span className="price-value">{this.state.symbol}{this.state.bitcoinPrice}</span>
-        <span className="price-label"> BTC/{this.props.currency}</span>
+        <div className="price-footer">
+          <span className="price-label"> BTC/{this.state.currency}</span>
+          <select className="price-menu" name="currency"
+              defaultValue="USD"
+              onChange={this.handleCurrency}>
+            <option value="AUD">AUD (Australian Dollar)</option>
+            <option value="BRL">BRL (Brazilian Real)</option>
+            <option value="CAD">CAD (Canadian Dollar)</option>
+            <option value="CHF">CHF (Swiss Franc)</option>
+            <option value="CLP">CLP (Chilean Peso)</option>
+            <option value="CNY">CNY (Chinese Yuan)</option>
+            <option value="DKK">DKK (Danish Krone)</option>
+            <option value="EUR">EUR (Euro)</option>
+            <option value="GBP">GBP (Pound Sterling)</option>
+            <option value="HKD">HKD (Honk Kong Dollar)</option>
+            <option value="ISK">ISK (Icelandic Krona)</option>
+            <option value="JPY">JPY (Japanese Yen)</option>
+            <option value="KRW">KRW (South Korean Won)</option>
+            <option value="NZD">NZD (New Zealand Dollar)</option>
+            <option value="PLN">PLN (Polish Zloty)</option>
+            <option value="RUB">RUB (Russian Ruble)</option>
+            <option value="SEK">SEK (Swedish Krona)</option>
+            <option value="SGD">SGD (Singapore Dollar)</option>
+            <option value="THB">THB (Thai Baht)</option>
+            <option value="TWD">TWD (New Taiwan Dollar)</option>
+            <option value="USD">USD (United States Dollar)</option>
+          </select>
+        </div>
       </div>
     );
   }

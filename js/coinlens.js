@@ -10,14 +10,15 @@ var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
 
   getDefaultProps: function() {
     return {
-      currency: "USD"
     };
   },
 
   getInitialState: function() {
     return {
       bitcoinPrice: null,
-      symbol: null
+      currency: "USD",
+      symbol: null,
+      ticker: {}
     };
   },
 
@@ -26,13 +27,33 @@ var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
     var url = 'https://blockchain.info/ticker?cors=true';
     var success = function(data) {
       if (self.isMounted()) {
-        self.setState({
-          bitcoinPrice: data[self.props.currency]['15m'],
-          symbol: data[self.props.currency]['symbol']
-        });
+        self.setTicker(data);
+        self.setCurrency(self.state.currency);
       }
     };
     $.ajax(url).done(success);
+  },
+
+  handleCurrency: function(event) {
+    var self = this;
+    var currency = event.target.value;
+    self.setCurrency(currency);
+  },
+
+  setTicker: function(data) {
+    var self = this;
+    self.setState({
+      ticker: data
+    });
+  },
+
+  setCurrency: function(currency) {
+    var self = this;
+    self.setState({
+      currency: currency,
+      symbol: self.state.ticker[currency]['symbol'],
+      bitcoinPrice: self.state.ticker[currency]['15m']
+    });
   },
 
   render: function() {
@@ -40,7 +61,34 @@ var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
       React.DOM.div(null, 
         React.DOM.span({className: "widget-label"}, "Bitcoin Price"), 
         React.DOM.span({className: "price-value"}, this.state.symbol, this.state.bitcoinPrice), 
-        React.DOM.span({className: "price-label"}, " BTC/", this.props.currency)
+        React.DOM.div({className: "price-footer"}, 
+          React.DOM.span({className: "price-label"}, " BTC/", this.state.currency), 
+          React.DOM.select({className: "price-menu", name: "currency", 
+              defaultValue: "USD", 
+              onChange: this.handleCurrency}, 
+            React.DOM.option({value: "AUD"}, "AUD (Australian Dollar)"), 
+            React.DOM.option({value: "BRL"}, "BRL (Brazilian Real)"), 
+            React.DOM.option({value: "CAD"}, "CAD (Canadian Dollar)"), 
+            React.DOM.option({value: "CHF"}, "CHF (Swiss Franc)"), 
+            React.DOM.option({value: "CLP"}, "CLP (Chilean Peso)"), 
+            React.DOM.option({value: "CNY"}, "CNY (Chinese Yuan)"), 
+            React.DOM.option({value: "DKK"}, "DKK (Danish Krone)"), 
+            React.DOM.option({value: "EUR"}, "EUR (Euro)"), 
+            React.DOM.option({value: "GBP"}, "GBP (Pound Sterling)"), 
+            React.DOM.option({value: "HKD"}, "HKD (Honk Kong Dollar)"), 
+            React.DOM.option({value: "ISK"}, "ISK (Icelandic Krona)"), 
+            React.DOM.option({value: "JPY"}, "JPY (Japanese Yen)"), 
+            React.DOM.option({value: "KRW"}, "KRW (South Korean Won)"), 
+            React.DOM.option({value: "NZD"}, "NZD (New Zealand Dollar)"), 
+            React.DOM.option({value: "PLN"}, "PLN (Polish Zloty)"), 
+            React.DOM.option({value: "RUB"}, "RUB (Russian Ruble)"), 
+            React.DOM.option({value: "SEK"}, "SEK (Swedish Krona)"), 
+            React.DOM.option({value: "SGD"}, "SGD (Singapore Dollar)"), 
+            React.DOM.option({value: "THB"}, "THB (Thai Baht)"), 
+            React.DOM.option({value: "TWD"}, "TWD (New Taiwan Dollar)"), 
+            React.DOM.option({value: "USD"}, "USD (United States Dollar)")
+          )
+        )
       )
     );
   }
