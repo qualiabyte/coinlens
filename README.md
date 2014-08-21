@@ -31,12 +31,12 @@ Try the [live demo](http://qualiabyte.github.io/coinlens)!
 ![Price Widget](http://qualiabyte.github.io/coinlens/images/bitcoin-price.png)
 
 ```html
-<div class="coinlens bitcoin-price"></div>
+<div class="coinlens bitcoin-price" data-currency="USD"></div>
 ```
 
 **Options**
 
-+ None required!
++ `currency` *String* The currency code for the display price (Default: "USD")
 
 ### Bitcoin-Balance
 

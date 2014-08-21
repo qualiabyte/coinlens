@@ -8,9 +8,16 @@ if (!window.Chart) return console.log("Waiting for Chart.js");
 
 var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
 
+  getDefaultProps: function() {
+    return {
+      currency: "USD"
+    };
+  },
+
   getInitialState: function() {
     return {
-      bitcoinPrice: null
+      bitcoinPrice: null,
+      symbol: null
     };
   },
 
@@ -20,7 +27,8 @@ var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
     var success = function(data) {
       if (self.isMounted()) {
         self.setState({
-          bitcoinPrice: data['USD']['15m']
+          bitcoinPrice: data[self.props.currency]['15m'],
+          symbol: data[self.props.currency]['symbol']
         });
       }
     };
@@ -31,8 +39,8 @@ var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
     return (
       React.DOM.div(null, 
         React.DOM.span({className: "widget-label"}, "Bitcoin Price"), 
-        React.DOM.span({className: "price-value"}, "$", this.state.bitcoinPrice), 
-        React.DOM.span({className: "price-label"}, " BTC/USD")
+        React.DOM.span({className: "price-value"}, this.state.symbol, this.state.bitcoinPrice), 
+        React.DOM.span({className: "price-label"}, " BTC/", this.props.currency)
       )
     );
   }
@@ -217,7 +225,7 @@ var BitcoinBalanceHistory = React.createClass({displayName: 'BitcoinBalanceHisto
 $('.coinlens.bitcoin-price').each(function(index, elem) {
   var $price = $(elem);
   React.renderComponent(
-    BitcoinPrice(null),
+    BitcoinPrice({currency: $price.data('currency')}),
     $price[0]
   );
 });
