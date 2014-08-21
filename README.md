@@ -36,7 +36,7 @@ Try the [live demo](http://qualiabyte.github.io/coinlens)!
 
 **Options**
 
-+ `currency` *String* The currency code for the display price (Default: "USD")
++ `currency` *String* The currency code for the price to display (Default: "USD")
 
 ### Bitcoin-Balance
 
