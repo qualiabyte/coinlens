@@ -66,6 +66,18 @@ Try the [live demo](http://qualiabyte.github.io/coinlens)!
 + `uniform` *Boolean* Whether to space transactions evenly (Default: false)
 + `width` *Number* The width in pixels (Default: 400)
 
+### Bitcoin-QR-Code
+
+![QR Code Widget](http://qualiabyte.github.io/coinlens/images/bitcoin-qr-code.png)
+
+```html
+<div class="coinlens bitcoin-qr-code" data-address="36PrZ1KHYMpqSyAQXSG8VwbUiq2EogxLo2"></div>
+```
+
+**Options**
+
++ `address` *String* The bitcoin address (**Required**)
+
 ## Credits
 
 Thanks to [BlockChain](https://blockchain.info) and [Biteasy](https://biteasy.com) for the API data!  
