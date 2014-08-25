@@ -5,6 +5,7 @@
 if (!$)            return console.log("Waiting for jQuery");
 if (!window.React) return console.log("Waiting for React");
 if (!window.Chart) return console.log("Waiting for Chart.js");
+if (!window.qr)    return console.log("Waiting for QR.js")
 
 var BitcoinPrice = React.createClass({
 
@@ -270,6 +271,42 @@ var BitcoinBalanceHistory = React.createClass({
   }
 });
 
+var BitcoinQRCode = React.createClass({
+
+  getDefaultProps: function() {
+    return {
+      title: "Bitcoin QR Code",
+      address: null
+    };
+  },
+
+  componentDidMount: function() {
+    var self = this;
+    var $container = $(self.refs.qrContainer.getDOMNode());
+    var url = 'bitcoin:' + self.props.address;
+    var image = qr.image({
+      level: 'M',
+      size: 5,
+      value: url
+    });
+    $container.append(image);
+  },
+
+  render: function() {
+    return(
+      <div>
+        <span className="widget-label">{this.props.title}</span>
+        <div className="qr-container" ref="qrContainer"></div>
+        <div className="qr-footer">
+          <span className="bitcoin-address-short">{this.props.address.slice(0,12)}…</span>
+          <span className="bitcoin-address">{this.props.address}</span>
+        </div>
+      </div>
+    );
+  }
+
+});
+
 $('.coinlens.bitcoin-price').each(function(index, elem) {
   var $price = $(elem);
   React.renderComponent(
@@ -295,6 +332,14 @@ $('.coinlens.bitcoin-balance-history').each(function(index, elem) {
       uniform={$history.data('uniform')}
       width={$history.data('width')} />,
     $history[0]
+  );
+});
+
+$('.coinlens.bitcoin-qr-code').each(function(index, elem) {
+  var $qrcode = $(elem);
+  React.renderComponent(
+    <BitcoinQRCode address={$qrcode.data('address')} />,
+    $qrcode[0]
   );
 });
 
@@ -329,6 +374,7 @@ var setup = function(callback) {
   script("//code.jquery.com/jquery-1.10.0.min.js", onJQuery);
   script("//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react.js", callback);
   script("//qualiabyte.github.io/coinlens/lib/chart-new.js", callback);
+  script("//qualiabyte.github.io/coinlens/lib/qr.js", callback);
 
 };
 

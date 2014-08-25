@@ -67,6 +67,31 @@
   color: #888;
 }
 
+.coinlens.bitcoin-qr-code .qr-container {
+  padding: 3px 0 0 0;
+}
+
+.coinlens.bitcoin-qr-code .qr-code {}
+
+.coinlens.bitcoin-qr-code .qr-footer {}
+
+.coinlens.bitcoin-qr-code .qr-footer .bitcoin-address-short {
+  display: block;
+  color: #888;
+}
+
+.coinlens.bitcoin-qr-code .qr-footer .bitcoin-address {
+  display: none;
+}
+
+.coinlens.bitcoin-qr-code .qr-footer:hover .bitcoin-address-short {
+  display: none;
+}
+
+.coinlens.bitcoin-qr-code .qr-footer:hover .bitcoin-address {
+  display: block;
+}
+
 .coinlens-tooltip {
   position: absolute;
   border: medium none;
