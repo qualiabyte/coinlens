@@ -90,6 +90,7 @@
 
 .coinlens.bitcoin-qr-code .qr-footer:hover .bitcoin-address {
   display: block;
+  color: #888;
 }
 
 .coinlens-tooltip {
