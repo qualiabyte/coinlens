@@ -298,8 +298,11 @@ var BitcoinQRCode = React.createClass({displayName: 'BitcoinQRCode',
         React.DOM.span({className: "widget-label"}, this.props.title), 
         React.DOM.div({className: "qr-container", ref: "qrContainer"}), 
         React.DOM.div({className: "qr-footer"}, 
-          React.DOM.span({className: "bitcoin-address-short"}, this.props.address.slice(0,12), "…"), 
-          React.DOM.span({className: "bitcoin-address"}, this.props.address)
+          React.DOM.span({className: "bitcoin-address-short"}, 
+            React.DOM.a({href: "https://blockchain.info/address/" + this.props.address}, 
+              this.props.address.slice(0,12), "…"
+            )
+          )
         )
       )
     );

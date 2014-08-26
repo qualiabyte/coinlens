@@ -13,6 +13,16 @@
   font-style: normal;
 }
 
+.coinlens a {
+  color: #666;
+  text-decoration: none;
+}
+
+.coinlens a:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
 .coinlens .widget-label {
   display: block;
   font-size: 16px;
@@ -76,19 +86,6 @@
 .coinlens.bitcoin-qr-code .qr-footer {}
 
 .coinlens.bitcoin-qr-code .qr-footer .bitcoin-address-short {
-  display: block;
-  color: #888;
-}
-
-.coinlens.bitcoin-qr-code .qr-footer .bitcoin-address {
-  display: none;
-}
-
-.coinlens.bitcoin-qr-code .qr-footer:hover .bitcoin-address-short {
-  display: none;
-}
-
-.coinlens.bitcoin-qr-code .qr-footer:hover .bitcoin-address {
   display: block;
   color: #888;
 }
