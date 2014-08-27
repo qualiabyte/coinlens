@@ -31,14 +31,6 @@
 
 .coinlens.bitcoin-price .price-footer {}
 
-.coinlens.bitcoin-price .price-footer:hover .price-menu {
-  display: block;
-}
-
-.coinlens.bitcoin-price .price-footer:hover .price-label {
-  display: none;
-}
-
 .coinlens.bitcoin-price .price-footer .price-label {
   display: block;
   font-size: 15px;

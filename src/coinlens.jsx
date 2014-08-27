@@ -33,6 +33,23 @@ var BitcoinPrice = React.createClass({
       }
     };
     $.ajax(url).done(success);
+
+    var $menu = $(self.refs.priceMenu.getDOMNode());
+    var $label = $(self.refs.priceLabel.getDOMNode());
+    var $footer = $(self.refs.priceFooter.getDOMNode());
+
+    var showMenu = function(event) {
+      $label.hide();
+      $menu.show();
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    var hideMenu = function(event) {
+      $label.show();
+      $menu.hide();
+    };
+    $label.click(showMenu);
+    $menu.change(hideMenu);
   },
 
   handleCurrency: function(event) {
@@ -62,9 +79,13 @@ var BitcoinPrice = React.createClass({
       <div>
         <span className="widget-label">Bitcoin Price</span>
         <span className="price-value">{this.state.symbol}{this.state.bitcoinPrice}</span>
-        <div className="price-footer">
-          <span className="price-label"> BTC/{this.state.currency}</span>
-          <select className="price-menu" name="currency"
+        <div className="price-footer" ref="priceFooter">
+          <span className="price-label" ref="priceLabel">
+            <a href="#">
+              BTC/{this.state.currency}
+            </a>
+          </span>
+          <select className="price-menu" name="currency" ref="priceMenu"
               defaultValue="USD"
               onChange={this.handleCurrency}>
             <option value="AUD">AUD (Australian Dollar)</option>

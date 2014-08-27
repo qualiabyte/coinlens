@@ -33,6 +33,23 @@ var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
       }
     };
     $.ajax(url).done(success);
+
+    var $menu = $(self.refs.priceMenu.getDOMNode());
+    var $label = $(self.refs.priceLabel.getDOMNode());
+    var $footer = $(self.refs.priceFooter.getDOMNode());
+
+    var showMenu = function(event) {
+      $label.hide();
+      $menu.show();
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    var hideMenu = function(event) {
+      $label.show();
+      $menu.hide();
+    };
+    $label.click(showMenu);
+    $menu.change(hideMenu);
   },
 
   handleCurrency: function(event) {
@@ -62,9 +79,13 @@ var BitcoinPrice = React.createClass({displayName: 'BitcoinPrice',
       React.DOM.div(null, 
         React.DOM.span({className: "widget-label"}, "Bitcoin Price"), 
         React.DOM.span({className: "price-value"}, this.state.symbol, this.state.bitcoinPrice), 
-        React.DOM.div({className: "price-footer"}, 
-          React.DOM.span({className: "price-label"}, " BTC/", this.state.currency), 
-          React.DOM.select({className: "price-menu", name: "currency", 
+        React.DOM.div({className: "price-footer", ref: "priceFooter"}, 
+          React.DOM.span({className: "price-label", ref: "priceLabel"}, 
+            React.DOM.a({href: "#"}, 
+              "BTC/", this.state.currency
+            )
+          ), 
+          React.DOM.select({className: "price-menu", name: "currency", ref: "priceMenu", 
               defaultValue: "USD", 
               onChange: this.handleCurrency}, 
             React.DOM.option({value: "AUD"}, "AUD (Australian Dollar)"), 
