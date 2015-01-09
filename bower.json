@@ -1,0 +1,23 @@
+{
+  "name": "coinlens",
+  "version": "0.0.4",
+  "description": "A suite of minimalist Bitcoin widgets",
+  "authors": [
+    "Tyler Florez <qualiabyte@gmail.com>"
+  ],
+  "homepage": "https://github.com/qualiabyte/coinlens",
+  "main": "coinlens.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "keywords": [
+    "coinlens",
+    "bitcoin",
+    "widget"
+  ],
+  "license": "MIT"
+}
