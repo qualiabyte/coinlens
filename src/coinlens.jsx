@@ -11,6 +11,7 @@ var BitcoinPrice = React.createClass({
 
   getDefaultProps: function() {
     return {
+      currency: 'USD'
     };
   },
 
@@ -26,10 +27,11 @@ var BitcoinPrice = React.createClass({
   componentDidMount: function() {
     var self = this;
     var url = 'https://blockchain.info/ticker?cors=true';
+    var currency = self.props.currency;
     var success = function(data) {
       if (self.isMounted()) {
         self.setTicker(data);
-        self.setCurrency(self.state.currency);
+        self.setCurrency(currency);
       }
     };
     $.ajax(url).done(success);
