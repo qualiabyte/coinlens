@@ -5,11 +5,11 @@ all: build dist
 
 build:
 	mkdir -p js
-	$(JSX) -x jsx src js
+	node $(JSX) -x jsx src js
 
 watch:
 	mkdir -p js
-	$(JSX) -x jsx --watch src js
+	node $(JSX) -x jsx --watch src js
 
 dist: build
 	cp js/coinlens.js coinlens.js
