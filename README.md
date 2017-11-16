@@ -80,7 +80,7 @@ Try the [live demo](http://qualiabyte.github.io/coinlens)!
 
 ## Credits
 
-Thanks to [BlockChain](https://blockchain.info) and [Biteasy](https://biteasy.com) for the API data!  
+Thanks to [BlockChain](https://blockchain.info) and [BlockCypher](http://www.blockcypher.com/) for the API data!  
 Built with [React](http://facebook.github.io/react/), [jQuery](https://jquery.com), and [ChartNew.js](https://github.com/FVANCOP/ChartNew.js).  
 
 ## License
