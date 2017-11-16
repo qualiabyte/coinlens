@@ -176,19 +176,20 @@ var BitcoinBalanceHistory = React.createClass({displayName: 'BitcoinBalanceHisto
     var address = self.props.address;
     var getBalance = function(callback) {
       $.ajax({
-        url: 'https://api.biteasy.com/blockchain/v1/addresses/' + self.props.address,
+        url: 'https://blockchain.info/q/addressbalance/' + self.props.address + '?cors=true',
         success: function(json, status, xhr) {
-          return callback(json.data.balance);
+          var balance = Number.parseInt(json);
+          return callback(balance);
         }
       });
     };
     var getTxs = function(callback) {
       $.ajax({
-        url: 'https://api.biteasy.com/blockchain/v1/transactions?address='
-          + self.props.address
-          + '&per_page=' + self.props.count,
+        url: 'https://api.blockcypher.com/v1/btc/main/addrs/'
+          + self.props.address + '/full'
+          + '?limit=' + self.props.count,
         success: function(json, status, xhr) {
-          return callback(json.data.transactions);
+          return callback(json.txs);
         }
       });
     };
@@ -202,18 +203,18 @@ var BitcoinBalanceHistory = React.createClass({displayName: 'BitcoinBalanceHisto
             var inn = 0;
 
             for (var j in tx.outputs)
-              if (tx.outputs[j].to_address == address)
+              if (tx.outputs[j].addresses[0] == address)
                 out += tx.outputs[j].value;
 
             for (var j in tx.inputs)
-              if (tx.inputs[j].from_address == address)
-                inn += tx.inputs[j].outpoint_value;
+              if (tx.inputs[j].addresses[0] == address)
+                inn += tx.inputs[j].output_value;
 
             history[i] = {
               balance: (i == 0)
                 ? balance
                 : history[i-1].balance + history[i-1].in - history[i-1].out,
-              date: txs[i].created_at,
+              date: txs[i].received,
               out: out,
               in: inn
             };
