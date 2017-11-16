@@ -1,6 +1,6 @@
 {
   "name": "coinlens",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "A suite of minimalist Bitcoin widgets",
   "authors": [
     "Tyler Florez <qualiabyte@gmail.com>"
